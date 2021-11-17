@@ -1,1 +1,1 @@
-web: gunicorn django_assess.wsgi
+web: python3 manage.py runserver
