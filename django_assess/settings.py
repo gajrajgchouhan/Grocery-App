@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-@6+d_ymftdf^qj4jk^yw_y&766!+jnfdq=bgvodgq=6w%3o)7l"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if os.environ.get("DEBUG") == "False" else True
+DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "readingright-grocery-gajraj.herokuapp.com", "0.0.0.0"]
 
@@ -49,13 +49,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-]
-
-MIDDLEWARE_CLASSES = (
-    # Simplified static file serving.
-    # https://warehouse.python.org/project/whitenoise/
     "whitenoise.middleware.WhiteNoiseMiddleware",
-)
+]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -137,10 +132,8 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-if DEBUG:
-    STATICFILES_DIRS = [
-        BASE_DIR / "static",
-    ]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-else:
-    STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
