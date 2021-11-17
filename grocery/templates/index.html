@@ -1,0 +1,70 @@
+{% load static %}
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>View List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'grocery/css/style.css' %}">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <!-- top -->
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>View Grocery List</h1>
+            </div>
+            <div class="col-lg-6 float-right">
+                <div class="row">
+                    <form action="/" method="post">
+                        {% csrf_token %}
+                        <div class="col-lg-4">
+                            <!-- Date Filtering-->
+                            {{form.date_filter}}
+                        </div>
+                        <div class="col-lg-2">
+                            <input type="submit" class="btn btn-danger" value="filter">
+                        </div>
+                    </form>
+                    <div class="col-lg-2">
+                        <a href="/logout" class="btn btn-danger mr-2">Logout</a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="/add" class="btn btn-danger ml-2">Add</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // top -->
+        <!-- Grocery Cards -->
+        {% if groceries %}
+        <div class="row row-cols-3 mt-4">
+            {% for row in groceries %}
+            <div class="col mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{row.name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Quantity: {{ row.quantity }}, Date: {{row.date}}
+                        </h6>
+                        {%if row.status == 0%}
+                        <p class="text-success">PENDING</p>
+                        {% elif row.status == 1 %}
+                        <p class="text-danger">NOT AVAILABLE</p>
+                        {% else %}
+                        <p class="text-info">PENDING</p>
+                        {%endif%}
+                        <a class="text-success" href="/update/{{row.id}}">Update</a>
+                        <a class="text-danger" href="/delete/{{row.id}}">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No groceries found.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

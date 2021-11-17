@@ -1,0 +1,45 @@
+{% load static %}
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Update List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'grocery/css/style.css' %}">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Update Grocery List</h1>
+        <form method="post" action="/update/{{id}}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Item name</label>
+                {{form.name}}
+            </div>
+            <div class="form-group">
+                <label>Item quantity</label>
+                {{form.quantity}}
+            </div>
+            <div class="form-group">
+                <label>Item status</label>
+                {{form.status}}
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                {{form.date}}
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-danger">
+            </div>
+        </form>
+        <alert>{{message}}</alert>
+        {% if form.errors %}
+        {% for key,value in form.errors.items %}
+        {{ value|escape }}
+        {% endfor %}
+        {% endif %}
+    </div>
+</body>
+
+</html>

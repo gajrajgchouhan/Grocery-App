@@ -1,0 +1,58 @@
+{% load static %}
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Add List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'grocery/css/style.css' %}">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>Add Grocery List</h1>
+            </div>
+            <div class="col-lg-6 float-right">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="/" class="btn btn-danger">Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if form %}
+        <form action="/add" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Item name</label>
+                {{form.name}}
+            </div>
+            <div class="form-group">
+                <label>Item quantity</label>
+                {{form.quantity}}
+            </div>
+            <div class="form-group">
+                <label>Item status</label>
+                {{form.status}}
+            </div>
+            <div class="form-group">
+                <label>Date</label>
+                {{form.date}}
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-danger">
+            </div>
+        </form>
+        {% endif %}
+        <alert>{{message}}</alert>
+        {% if form.errors %}
+        {% for key,value in form.errors.items %}
+        {{ value|escape }}
+        {% endfor %}
+        {% endif %}
+    </div>
+</body>
+
+</html>
