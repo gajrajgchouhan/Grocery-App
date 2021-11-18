@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import widgets
 from django.forms.widgets import SelectDateWidget
 from .models import Grocery, ProfileModel
 
@@ -19,6 +18,12 @@ class Profile(UserCreationForm):
 
 
 class AddGrocery(forms.ModelForm):
+    """
+    Form for adding grocery, it is a Model Form and
+    uses the Grocery model in class Meta.
+    The 4 fields are required and initial is set to 0 (Pending) for status.
+    """
+
     class Meta:
         model = Grocery
         fields = ["name", "quantity", "status", "date"]
@@ -36,4 +41,8 @@ class AddGrocery(forms.ModelForm):
 
 
 class FilterGrocery(forms.Form):
+    """
+    For filtering the grocery, Widget for selecting date is used.
+    """
+
     date_filter = forms.DateField(widget=forms.SelectDateWidget())

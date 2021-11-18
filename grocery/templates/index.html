@@ -20,24 +20,24 @@
                     <form class="col-lg-6" action="/" method="post">
                         {% csrf_token %}
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-9">
                                 <!-- Date Filtering-->
                                 {{form.date_filter}}
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <input type="submit" class="btn btn-danger" value="filter">
                             </div>
                         </div>
                     </form>
 
                     <div class="col-lg-2">
-                        <a href="/" class="btn btn-danger ml-2">No Filter</a>
+                        <a href="/" role="button" class="btn text-nowrap btn-danger">No Filter</a>
                     </div>
                     <div class="col-lg-2">
-                        <a href="/add" class="btn btn-danger ml-2">Add</a>
+                        <a href="/add" role="button" class="btn btn-danger">Add</a>
                     </div>
                     <div class="col-lg-2">
-                        <a href="/logout" class="btn btn-danger mr-2">Logout</a>
+                        <a href="/logout" role="button" class="btn btn-danger mr-2">Logout</a>
                     </div>
                 </div>
             </div>
@@ -45,23 +45,23 @@
         <!-- // top -->
         <!-- Grocery Cards -->
         {% if groceries %}
-        <div class="row row-cols-3 mt-4">
+        <div class="row row-cols-3">
             {% for row in groceries %}
             <div class="col mt-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{row.name}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Quantity: {{ row.quantity }}, Date: {{row.date}}
-                        </h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Quantity: {{ row.quantity }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Date: {{row.date}}</h6>
                         {%if row.status == '0' %}
-                        <p class="text-success">PENDING</p>
+                        <p class="font-weight-bold text-danger">PENDING</p>
                         {% elif row.status == '1' %}
-                        <p class="text-danger">BOUGHT</p>
+                        <p class="font-weight-bold text-success">BOUGHT</p>
                         {% else %}
-                        <p class="text-info">NOT AVAILABLE</p>
+                        <p class="font-weight-bold text-info">NOT AVAILABLE</p>
                         {%endif%}
-                        <a class="text-success" href="/update/{{row.id}}">Update</a>
-                        <a class="text-danger" href="/delete/{{row.id}}">Delete</a>
+                        <a class="mx-auto btn btn-outline-primary" role="button" href="/update/{{row.id}}">Update</a>
+                        <a class="mx-auto btn btn-outline-danger" role="button" href="/delete/{{row.id}}">Delete</a>
                     </div>
                 </div>
             </div>

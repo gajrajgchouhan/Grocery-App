@@ -31,7 +31,6 @@ def index(request):
     if request.method == "POST":
         f = FilterGrocery(request.POST)
         if f.is_valid():
-            print(f.cleaned_data)
             groceries = Grocery.objects.all().filter(user=request.user, date=f.cleaned_data["date_filter"])
             context = {"groceries": groceries, "form": f}
         else:
