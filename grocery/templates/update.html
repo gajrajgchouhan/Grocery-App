@@ -10,7 +10,18 @@
 
 <body>
     <div class="container mt-5">
-        <h1>Update Grocery List</h1>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>Update Grocery List</h1>
+            </div>
+            <div class="col-lg-6 float-right">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="/" class="btn btn-danger">Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <form method="post" action="/update/{{id}}">
             {% csrf_token %}
             <div class="form-group">

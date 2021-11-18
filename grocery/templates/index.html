@@ -12,26 +12,32 @@
     <div class="container mt-5">
         <!-- top -->
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <h1>View Grocery List</h1>
             </div>
-            <div class="col-lg-6 float-right">
+            <div class="col-lg-8">
                 <div class="row">
-                    <form action="/" method="post">
+                    <form class="col-lg-6" action="/" method="post">
                         {% csrf_token %}
-                        <div class="col-lg-4">
-                            <!-- Date Filtering-->
-                            {{form.date_filter}}
-                        </div>
-                        <div class="col-lg-2">
-                            <input type="submit" class="btn btn-danger" value="filter">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <!-- Date Filtering-->
+                                {{form.date_filter}}
+                            </div>
+                            <div class="col-lg-2">
+                                <input type="submit" class="btn btn-danger" value="filter">
+                            </div>
                         </div>
                     </form>
+
+                    <div class="col-lg-2">
+                        <a href="/" class="btn btn-danger ml-2">No Filter</a>
+                    </div>
+                    <div class="col-lg-2">
+                        <a href="/add" class="btn btn-danger ml-2">Add</a>
+                    </div>
                     <div class="col-lg-2">
                         <a href="/logout" class="btn btn-danger mr-2">Logout</a>
-                    </div>
-                    <div class="col-lg-4">
-                        <a href="/add" class="btn btn-danger ml-2">Add</a>
                     </div>
                 </div>
             </div>
@@ -47,12 +53,12 @@
                         <h5 class="card-title">{{row.name}}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">Quantity: {{ row.quantity }}, Date: {{row.date}}
                         </h6>
-                        {%if row.status == 0%}
+                        {%if row.status == '0' %}
                         <p class="text-success">PENDING</p>
-                        {% elif row.status == 1 %}
-                        <p class="text-danger">NOT AVAILABLE</p>
+                        {% elif row.status == '1' %}
+                        <p class="text-danger">BOUGHT</p>
                         {% else %}
-                        <p class="text-info">PENDING</p>
+                        <p class="text-info">NOT AVAILABLE</p>
                         {%endif%}
                         <a class="text-success" href="/update/{{row.id}}">Update</a>
                         <a class="text-danger" href="/delete/{{row.id}}">Delete</a>
